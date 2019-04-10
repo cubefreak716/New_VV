@@ -14,7 +14,7 @@ class Particle {
     pushStyle(); 
     noStroke(); 
     //fill(249, 255, 221); 
-    fill(random(0,255), 0, random(0,255)); 
+    fill(255, 255, 255); 
     ellipse(x,y, 5, 5);
     popStyle();
     x += xVel;

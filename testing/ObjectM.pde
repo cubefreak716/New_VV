@@ -6,9 +6,12 @@ class ObjectM {
   
   ObjectM(float x, float y) {
     //rgb(137, 66, 244)
-    r = 153;
-    g = 158;
-    b = 255;
+    //rgb(143, 224, 247)
+    if(w<6){
+      r = 153;
+      g = 158;
+      b = 255;
+    }
     this.x = x; 
     this.y = y; 
     

@@ -204,8 +204,8 @@ void draw() {
     }
     else if(vol2>=200){
       r.xVel = random(-12, -7);
-      float yR = random(0,5);
-      r.yVel = yRange[(int)yR];
+      float yR2 = random(0,5);
+      r.yVel = yRange[(int)yR2];
     }
     //with input
     r.w = vol2;

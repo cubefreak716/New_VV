@@ -14,13 +14,17 @@ class ObjectR {
   
   ObjectR() {
     //rgb(255, 153, 153)
+    //rgb(143, 178, 247
     r = 255;
     g = 153;
     b = 153; 
-    //r = 255; 
-    //g = 255;
-    //b = 255;
-    angle = random(-10,10);
+    //r = 143; 
+    //g = 247;
+    //b = 181;
+    
+
+    
+    angle = random(-PI/8, PI/8);
     //vol = w; 
     
   }
@@ -56,9 +60,9 @@ class ObjectR {
   
   void drawMe() {
   
-    if(xVel ==0 && yVel== 0){
-       boomR.remove(this); 
-    }
+    //if(xVel ==0 && yVel== 0){
+    //   boomR.remove(this); 
+    //}
     
     if(timer>0){
      timer --;  
@@ -66,12 +70,27 @@ class ObjectR {
     if(timer == 0){
       boomR.remove(this);  
     }
-    
+    pushMatrix();
     pushStyle(); 
     noStroke();
-    if(w>=2200){
+    if(w>=200){
      rotate(angle); 
     }
+    //if(w<6){
+    //  r = 143;
+    //  g = 224;
+    //  b = 247;
+    //}
+    //if(w>=6 && w<200){ //rgb(127, 198, 219)
+    //  r = 127;
+    //  g = 198;
+    //  b = 219;
+    //}
+    //if(w>=200){ //rgb(107, 168, 186)
+    //  r = 255;
+    //  g = 255;
+    //  b = 255;
+    //}
     fill(r,g,b);
     ellipse(x,y,w,h);
     //rect(x,y,w*8,h);
@@ -98,7 +117,7 @@ class ObjectR {
           y += yVel;
         }
     }
-    if(w>5 && w<00){      //normal 
+    if(w>5 && w<200){      //normal 
       x += xVel;
       y += yVel;
      if(x <= (width/2)){
@@ -165,10 +184,11 @@ class ObjectR {
     
     
     
-    for(int i = 0; i<boom.size(); i ++){
-      collision(boom.get(i));       
-    }
-    popStyle(); 
+    //for(int i = 0; i<boom.size(); i ++){
+    //  collision(boom.get(i));       
+    //}
+    popStyle();
+    popMatrix();
   }
   
   

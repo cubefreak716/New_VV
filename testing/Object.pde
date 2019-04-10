@@ -15,6 +15,9 @@ class Object {
     r = 153; 
     g = 209; 
     b = 255;
+    
+    //rgb(143, 224, 247)
+
 
     //r = 255; 
     //g = 255;
@@ -25,7 +28,7 @@ class Object {
     //g = 97;
     //b = 155;
 
-    angle = random(-10,10); 
+    angle = random(-PI/8, PI/8); 
 
   }
 
@@ -193,6 +196,21 @@ class Object {
        rotate(angle); 
       }
       //translate(x,y);
+      //if(w<6){
+      //  r = 143;
+      //  g = 224;
+      //  b = 247;
+      //}
+      //if(w>=6 && w<200){ //rgb(127, 198, 219)
+      //  r = 127;
+      //  g = 198;
+      //  b = 219;
+      //}
+      //if(w>=200){ //rgb(107, 168, 186)
+      //  r =  255;
+      //  g = 255;
+      //  b = 255;
+      //}
       fill(r, g, b);
       ellipse(x, y, w, h);
   
