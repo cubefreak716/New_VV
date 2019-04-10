@@ -91,7 +91,7 @@ void draw() {
   }
   //port available
   
-  //output.println(vol + " /  " + vol2);
+  output.println(vol + " /  " + vol2);
   
   
   /////Room Tone ////
@@ -163,8 +163,8 @@ void draw() {
     o.w = vol;
     o.h = vol;
     //without input
-    //o.w = 5; 
-    //o.h = 5; 
+    //o.w = 110; 
+    //o.h = 110; 
     //o.w = random(1, 20);
     //o.h = o.w; 
     
@@ -207,8 +207,8 @@ void draw() {
     r.w = vol2;
     r.h = vol2;
     //without input
-    //r.w = 5;
-    //r.h = 5;
+    //r.w = 100;
+    //r.h = 100;
 
     boomR.add(r);
   }
