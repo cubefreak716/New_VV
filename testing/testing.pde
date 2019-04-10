@@ -1,6 +1,7 @@
 import controlP5.*;
 ControlP5 cp5; 
 Slider Cone; 
+Button saveB;
 
 //Arduino
 import processing.serial.*;
@@ -9,6 +10,7 @@ String val;
 float vol;  //blue
 float vol2; //white
 byte[] inBuffer = new byte[255];
+int id =0;
 
 import processing.sound.*;
 import ddf.minim.*;
@@ -33,14 +35,17 @@ PrintWriter output;
 void setup() {
   size(1900, 1000);
   //size(screen.width, screen.height); 
-  surface.setResizable(true);
-   cp5 = new ControlP5(this);
-    cp5.addSlider("cone")
-     .setRange(1,200)
-     .setValue(1)
-     .setPosition(100,200)
-     .setSize(100,10)
-     ;
+  //surface.setResizable(true);
+  // cp5 = new ControlP5(this);
+  //  cp5.addSlider("cone")
+  //   .setRange(1,200)
+  //   .setValue(1)
+  //   .setPosition(100,200)
+  //   .setSize(100,10)
+  //   ;
+  cp5 = new ControlP5(this);
+  saveB = createButton("save", "Save Image", 100, 100);
+
 
   ////audio via computer mic////
   input = new AudioIn(this, 0); 
@@ -48,7 +53,7 @@ void setup() {
   analyzer = new Amplitude(this);   
   analyzer.input(input);
   
-  output = createWriter("out.txt"); 
+  
   
   ////yRange initialize////
   yRange[0] = -20;
@@ -100,10 +105,7 @@ void draw() {
     }       
   }
   //port available
-  
-  output.println(vol + " /  " + vol2);
-  
-  
+    
   /////Room Tone ////
   // if (vol<5){
   //  vol = 5;  
@@ -217,6 +219,21 @@ void draw() {
     boomR.add(r);
   }
 
+}
+
+Button createButton(String key, String label, float x, float y){
+  Button b = cp5.addButton(key)
+  .setLabel(label)
+  .setSize(75, 50)
+  .setPosition(x, y);
+
+  return b;
+}
+
+void save() {
+  save("sss" + id + ".jpg");
+  println("saved image");
+  id ++;
 }
 
 void cone(float l){
