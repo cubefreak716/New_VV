@@ -26,6 +26,8 @@ ArrayList<Object> temp = new ArrayList<Object>();
 ArrayList<ObjectM> merge = new ArrayList<ObjectM>(); 
 ArrayList<Particle> explosion = new ArrayList<Particle>();
 
+int[] yRange = new int[6]; 
+
 PrintWriter output;
 
 void setup() {
@@ -47,6 +49,14 @@ void setup() {
   analyzer.input(input);
   
   output = createWriter("out.txt"); 
+  
+  ////yRange initialize////
+  yRange[0] = -20;
+  yRange[1] = -15;
+  yRange[2] = -10;
+  yRange[3] = 10;
+  yRange[4] = 15;
+  yRange[5] = 20;
   
   ////arduino setup ////
   myPort = new Serial(this, Serial.list()[0], 9600); 
@@ -138,38 +148,33 @@ void draw() {
     if (vol<2) {
       vol = 1;
     }
-    if(vol>=500){
-      vol = 500; 
+    if(vol>=200){
+      vol = 200; 
     }
     Object o = new Object();
     o.x = 0;
     o.y = height/2;
        
     if(vol<6){
-      o.xVel = random(6,10);
-      o.yVel = random(-0.5,0.5); 
+      o.xVel = random(1,3);
+      o.yVel = random(-0.3,0.3); 
     }
     else if(vol>=6 && vol<200){
-      o.xVel = random(2, 8);
+      o.xVel = random(4, 6);
       o.yVel = random(-3, 3);
     }
     else if(vol>=200){
-      o.xVel = random(2, 8);
-      o.yVel = random(-15, 15);
+      o.xVel = random(7,12);
+      float yR = random(0,5);
+      o.yVel = yRange[(int)yR];
+      //o.yVel = random(-9, 9);
     }
-    //o.xVel = random(2,5); 
-    //o.yVel = random(-3,3); 
     //with input
     o.w = vol;
     o.h = vol;
     //without input
     //o.w = 110; 
     //o.h = 110; 
-    //o.w = random(1, 20);
-    //o.h = o.w; 
-    
-    //println("yes");
-
     boom.add(o);
   }
 
@@ -183,26 +188,25 @@ void draw() {
     if(vol2<2){
        vol2 = 1;  
     }
-    if(vol2>=500){
-      vol2 = 500; 
+    if(vol2>=200){
+      vol2 = 200; 
     }
     ObjectR r = new ObjectR();
     r.x = width;
     r.y = height/2;
     if(vol2<6){
-      r.xVel = random(-10,-6);
-      r.yVel = random(-0.5,0.5); 
+      r.xVel = random(-3,-1);
+      r.yVel = random(-0.3,0.3); 
     }
     else if(vol2>=6 && vol2<200){
-      r.xVel = random(-8, -2);
+      r.xVel = random(-6, -4);
       r.yVel = random(-3, 3);
     }
     else if(vol2>=200){
-      r.xVel = random(-8, -2);
-      r.yVel = random(-15, 15);
+      r.xVel = random(-12, -7);
+      float yR = random(0,5);
+      r.yVel = yRange[(int)yR];
     }
-    //r.xVel = random(-5,-2); 
-    //r.yVel = random(-3,3); 
     //with input
     r.w = vol2;
     r.h = vol2;

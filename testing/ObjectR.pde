@@ -4,15 +4,24 @@ class ObjectR {
   float oY = height/2; 
   
   float x, y, xVel, yVel, w, h;
+  float vol; 
   float r,g,b;
   boolean isHit = false;
   float timer = -1; 
+  boolean changed = false;
+  float cTimer = -1; 
+  float angle;
   
   ObjectR() {
     //rgb(255, 153, 153)
     r = 255;
     g = 153;
     b = 153; 
+    //r = 255; 
+    //g = 255;
+    //b = 255;
+    angle = random(-10,10);
+    //vol = w; 
     
   }
   
@@ -46,7 +55,11 @@ class ObjectR {
   
   
   void drawMe() {
-    //fill(0);
+  
+    if(xVel ==0 && yVel== 0){
+       boomR.remove(this); 
+    }
+    
     if(timer>0){
      timer --;  
     }
@@ -55,7 +68,10 @@ class ObjectR {
     }
     
     pushStyle(); 
-    noStroke(); 
+    noStroke();
+    if(w>=2200){
+     rotate(angle); 
+    }
     fill(r,g,b);
     ellipse(x,y,w,h);
     //rect(x,y,w*8,h);
@@ -82,7 +98,7 @@ class ObjectR {
           y += yVel;
         }
     }
-    if(w>5 && w<=100){      //normal 
+    if(w>5 && w<00){      //normal 
       x += xVel;
       y += yVel;
      if(x <= (width/2)){
@@ -106,31 +122,43 @@ class ObjectR {
           y += yVel;
         }
     }
-    if(w>100){             //loud
+    if(w>=200){             //loud
       //xVel = xVel*1.01; 
       //yVel = yVel*1.01;
       x += xVel;
-      y += yVel;
-     if(x <= (width/2)){
-          x += xVel;
-          y += yVel;
-          if(xVel<0){ 
-            xVel += 0.1;  
-          }          
-          if(yVel<0){
-            yVel += 0.01;  
-          }
-          if(yVel >= 0 && xVel >= 0){         //need to set a timer and after timer it removes itself
-             //r = 0; 
-             b = 255; 
-             if(timer == -1)
-             timer = 50; 
-          }
+      y += yVel;   
+        
+        cTimer ++; 
+        if(cTimer >= 15 && changed == false){
+          yVel = -yVel; 
+          changed = true;
+          cTimer = 0; 
         }
-        else{
-          x += xVel;
-          y += yVel;
-        }
+        else if(cTimer>=15 && changed == true){
+          yVel = -yVel; 
+          changed = false; 
+          cTimer = 0;
+        }  
+     //if(x <= (width/2)){
+     //     x += xVel;
+     //     y += yVel;
+     //     if(xVel<0){ 
+     //       xVel += 0.1;  
+     //     }          
+     //     if(yVel<0){
+     //       yVel += 0.01;  
+     //     }
+     //     if(yVel >= 0 && xVel >= 0){         //need to set a timer and after timer it removes itself
+     //        //r = 0; 
+     //        b = 255; 
+     //        if(timer == -1)
+     //        timer = 50; 
+     //     }
+     //   }
+     //   else{
+     //     x += xVel;
+     //     y += yVel;
+     //   }
       
     }
     

@@ -1,18 +1,32 @@
 class Object {
 
   float x, y, xVel, yVel, w, h;
+  float vol; 
   float r, g, b;
   boolean isHit = false; 
-  float timer = -1; 
-
+  float timer = -1;
+  boolean changed = false;
+  float cTimer = -1; 
+  float angle; 
+  
   Object() {
     //rgb(66, 134, 244)
+    //rgb(60, 97, 155)
     r = 153; 
     g = 209; 
     b = 255;
-    //r = 0; 
-    //g = 0; 
-    //b = 0;
+
+    //r = 255; 
+    //g = 255;
+    //b = 255;
+      
+    //vol = w; 
+    //r = 60;
+    //g = 97;
+    //b = 155;
+
+    angle = random(-10,10); 
+
   }
 
   void collision(ObjectR o) {
@@ -160,17 +174,28 @@ class Object {
 
 
     void drawMe() {
+      
+      if(xVel ==0 && yVel== 0){
+       boom.remove(this); 
+      }
+      
       if (timer>0) {
         timer --;
       }
       if (timer == 0) {
         boom.remove(this);
       }
+      pushMatrix();
       pushStyle(); 
       rectMode(CENTER);
       noStroke(); 
+      if(w>=200){
+       rotate(angle); 
+      }
+      //translate(x,y);
       fill(r, g, b);
       ellipse(x, y, w, h);
+  
       if (w>=0 && w<=5) {         //whispers
         //println("size is right"); 
         if (x >= (500)) { 
@@ -192,7 +217,7 @@ class Object {
           y += yVel;
         }
       }
-      if (w>5 && w<=100) {      //normal 
+      if (w>5 && w<200) {      //normal 
         x += xVel;
         y += yVel;
         if (x >= (width/2)) { 
@@ -217,66 +242,50 @@ class Object {
           y += yVel;
         }
       }
-      if (w>100 && w < 400) {
-        //xVel = xVel*1.2; 
-        //yVel = yVel*1.2; 
-        x += xVel;
-        y += yVel;   
-        if (x >= (width/2)) { 
+      if (w>=200) {
           x += xVel;
-          y += yVel;
-          if (xVel>0) {
-            xVel -= 0.1;
-          }          
-          if (yVel>0) {
-            yVel -= 0.01;
-          }
-          //if(yVel<0){
-          //  yVel += 0.01;  
+          y += yVel;   
+        
+        cTimer ++; 
+        if(cTimer >= 15 && changed == false){
+          yVel = -yVel; 
+          changed = true;
+          cTimer = 0; 
+        }
+        else if(cTimer>=15 && changed == true){
+          yVel = -yVel; 
+          changed = false; 
+          cTimer = 0;
+        }   
+        //if (x >= (width/2)) { 
+          
+          //x += xVel;
+          //y += yVel;
+          //if (xVel>0) {
+          //  xVel -= 0.1;
+          //}          
+          //if (yVel>0) {
+          //  yVel -= 0.01;
           //}
-          if (yVel <= 0 && xVel <= 0) {         //need to set a timer and after timer it removes itself
-            g = 255;
-            if (timer == -1)
-              timer = 50;
-          }
-        } else {
-          x += xVel;
-          y += yVel;
+          ////if(yVel<0){
+          ////  yVel += 0.01;  
+          ////}
+          //if (yVel <= 0 && xVel <= 0) {         //need to set a timer and after timer it removes itself
+          //  g = 255;
+          //  if (timer == -1)
+          //    timer = 50;
+          //}
+        //} 
+        //else {
+          //x += xVel;
+          //y += yVel;
         }
-      }
-      if ( w >= 400) { //biggest
-        //xVel = xVel; 
-        //yVel = yVel; 
-        x += xVel;
-        y += yVel; 
-        //r = 0; 
-        //g = 0; 
-        //b = 0; 
-        if (x >= (width/2)) { 
-          x += xVel;
-          y += yVel;
-          if (xVel>0) {
-            xVel -= 0.1;
-          }          
-          if (yVel>0) {
-            yVel -= 0.01;
-          }
-          if (yVel <= 0 && xVel <= 0) {         //need to set a timer and after timer it removes itself
-            g = 255;
-            if (timer == -1)
-              timer = 50;
-          }
-        } else {
-          x += xVel;
-          y += yVel;
-        }
-      }
-
-
-
+//      }
+              
       for (int i = 0; i<boomR.size(); i ++) {
         collision(boomR.get(i));
       }
       popStyle();
+      popMatrix(); 
     }
   }
